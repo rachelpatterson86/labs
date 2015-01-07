@@ -1,65 +1,58 @@
 require 'pry'
 
 alphabet = {
-  "A"=>"Alfa",
-  "B"=>"Bravo",
-  "C"=>"Charlie",
-  "D"=>"Delta",
-  "E"=>"Echo",
-  "F"=>"Foxtrot",
-  "G"=>"Golf",
-  "H"=>"Hotel",
-  "I"=>"India",
-  "J"=>"Juliett",
-  "K"=>"Kilo",
-  "L"=>"Lima",
-  "M"=>"Mike",
-  "N"=>"November",
-  "O"=>"Oscar",
-  "P"=>"Papa",
-  "Q"=>"Quebec",
-  "R"=>"Romeo",
-  "S"=>"Sierra",
-  "T"=>"Tango",
-  "U"=>"Uniform",
-  "V"=>"Victor",
-  "W"=>"Whiskey",
-  "X"=>"X-ray",
-  "Y"=>"Yankee",
-  "Z"=>"Zulu"
+  "A"=>"alfa",
+  "B"=>"bravo",
+  "C"=>"charlie",
+  "D"=>"delta",
+  "E"=>"echo",
+  "F"=>"foxtrot",
+  "G"=>"golf",
+  "H"=>"hotel",
+  "I"=>"india",
+  "J"=>"juliett",
+  "K"=>"kilo",
+  "L"=>"lima",
+  "M"=>"mike",
+  "N"=>"november",
+  "O"=>"oscar",
+  "P"=>"papa",
+  "Q"=>"quebec",
+  "R"=>"romeo",
+  "S"=>"sierra",
+  "T"=>"tango",
+  "U"=>"uniform",
+  "V"=>"victor",
+  "W"=>"whiskey",
+  "X"=>"x-ray",
+  "Y"=>"yankee",
+  "Z"=>"zulu"
 }
 
-def encoder(msg,blech)
+def encoder(msg,alphabet)
   #msg = 'whatever is in lies'
   #blech = 'whatever is in alphabet'
   msg.each_char do |c|
-    puts blech[c] #does something with c so needs to put c since we want to call each letter...
+    puts alphabet[c] #does something with c so needs to put c since we want to call each letter...
 #    blech.each {|x,y| puts "#{x}, #{y}"} = no need because the value is already called...
   end
 end
 
-
-def decoder(msg,blech)
+def decoder(msg,alphabet)
+  #binding.pry
   msg.split.each do |b| #see ruby doc for strings. what gives me an array of words?
-    puts blech.invert[b]
-#return only first char of string.... of each array
+    puts alphabet.invert[b]
 end
 end
+
+#encodeMe=encodeMe.chomp == encodeMe.chomp! these are the same.
 
 
 puts "Would you like to send a secret message?"
 lies = gets.upcase
 
 puts "What would you like to decode?"
-truth = gets.capitalize
+truth = gets.downcase
 
 encoder(lies,alphabet)
 decoder(truth, alphabet)
-
-=begin
-The encode function will take a
-string replace all upper and lower
-case characters with their "NATO"
-equivalents and return the result.
-
-=end
