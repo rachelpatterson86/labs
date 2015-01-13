@@ -2,6 +2,7 @@ require 'pry'
 
 $game_options = {"1" => "Human v. Human", "2" => "Human v. Computer(Easy)", "3" => "Human v. Computer(Hard)"}
 $grid = {"A1" => " ","A2" => " ","A3" => " ","B1" => " ","B2" => " ","B3" => " ","C1" => " ","C2" => " ","C3" => " "}
+WINNER = [["A1","A2","A3"],["B1","B2","B3"],["C1","C2","C3"],["A1","B1","C1"],["A2","B2","C2"],["A3","B3","C3"],["A1","B2","C3"],["A3","B2","C1"],]
 $game_mode
 $turn
 
@@ -62,7 +63,7 @@ def print_played_grid
 end
 
 def game_over?
-  if gameboard_full? || horizontal_win? || vertical_win? || diagonal_win?
+  if gameboard_full? || win? #win? replaced 3 other unneccessary win fx
     return true
   end
   return false
@@ -75,70 +76,8 @@ def gameboard_full?
   return false
 end
 
-def horizontal_win?
-  if player_horizontal_win?('X') || player_horizontal_win?('O')
-    return true
-  else
-    return false
-  end
-end
-
-def vertical_win?
-  if player_vertical_win?('X') || player_vertical_win?('O')
-    return true
-  else
-    return false
-  end
-end
-
-def diagonal_win?
-  if player_diagonal_win?('X') || player_diagonal_win?('O')
-    return true
-  else
-    return false
-  end
-end
-
-def player_horizontal_win?(player)
-  if $grid['A1'] == player && $grid['A2'] == player && $grid['A3'] == player
-    return true
-  elsif $grid['B1'] == player && $grid['B2'] == player && $grid['B3'] == player
-    return true
-  elsif $grid['C1'] == player && $grid['C2'] == player && $grid['C3'] == player
-    return true
-  end
-  return false
-end
-
-def player_vertical_win?(player)
-  if $grid['A1'] == player && $grid['B1'] == player && $grid['C1'] == player
-    return true
-  elsif $grid['A2'] == player && $grid['B2'] == player && $grid['C2'] == player
-    return true
-  elsif $grid['A3'] == player && $grid['B3'] == player && $grid['C3'] == player
-    return true
-  end
-  return false
-end
-
-def player_diagonal_win?(player)
-  if $grid['A1'] == player && $grid['B2'] == player && $grid['C3'] == player
-    return true
-  elsif $grid['C1'] == player && $grid['B2'] == player && $grid['A3'] == player
-    return true
-  end
-  return false
-end
-
-def player_win?(player)
-  if player_horizontal_win?(player)
-    return true
-  elsif player_vertical_win?(player)
-    return true
-  elsif player_diagonal_win?(player)
-    return true
-  end
-  return false
+def win? #this simple fx, lead me to delete 40 lines of code. ^_^
+  WINNER.all? {|w| w.uniq.length == 1}
 end
 
 def get_player_move(is_player_1)
@@ -172,11 +111,16 @@ end
 
 def set_player_move(player_move, player)
   if $grid[player_move] == " "
-    $grid[player_move] = player
+    result = $grid[player_move] = player
   else
     puts "There is already a play in square #{player_move}. #{player} loses a turn."
   end
+  set_winner_array(player_move,result)
+end
 
+def set_winner_array(player_move, result)
+  WINNER.include?(player_move) do |w|
+    w.[player_move]= result
 end
 
 def play_game_mode_1
