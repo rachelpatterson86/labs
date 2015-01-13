@@ -118,9 +118,10 @@ def set_player_move(player_move, player)
   set_winner_array(player_move,result)
 end
 
-def set_winner_array(player_move, result)
+def set_winner_array(player_move, result) #not working...
   WINNER.include?(player_move) do |w|
-    w.[player_move]= result
+    w[player_move]= result
+  end
 end
 
 def play_game_mode_1
