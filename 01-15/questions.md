@@ -3,6 +3,10 @@ In this assignment, we'll revisit and refactor
 implementation with an eye towards testability, maintainability,
 object oriented design, and code quality.
 
+Your work should be pushed to Github by Tuesday at 8am.
+
+**Incomplete work that is on time and later refined is preferred to late work that is complete and bug-free.**
+
 ## Objectives
 
 ### Learning Objectives
