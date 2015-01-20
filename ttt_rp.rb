@@ -23,7 +23,7 @@ def get_game_mode
   end
   puts "You've selected #{$game_options[user_input]} mode! Let's get started."
 
-  $game_mode = user_input.to_i
+  $game_mode = user_input
 end
 
 def print_rules
