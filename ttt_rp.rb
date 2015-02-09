@@ -1,8 +1,8 @@
 require 'pry'
 
 $game_options = {"1" => "Human v. Human", "2" => "Human v. Computer(Easy)", "3" => "Human v. Computer(Hard)"}
-$grid = {"A1" => " ","A2" => " ","A3" => " ","B1" => " ","B2" => " ","B3" => " ","C1" => " ","C2" => " ","C3" => " "}
-WINNER = [["A1","A2","A3"],["B1","B2","B3"],["C1","C2","C3"],["A1","B1","C1"],["A2","B2","C2"],["A3","B3","C3"],["A1","B2","C3"],["A3","B2","C1"],]
+grid = {"A1" => " ","A2" => " ","A3" => " ","B1" => " ","B2" => " ","B3" => " ","C1" => " ","C2" => " ","C3" => " "}
+WINNER = [["A1","A2","A3"],["B1","B2","B3"],["C1","C2","C3"],["A1","B1","C1"],["A2","B2","C2"],["A3","B3","C3"],["A1","B2","C3"],["A3","B2","C1"]]
 $game_mode
 $turn
 
@@ -40,7 +40,7 @@ def print_rules
   puts "For example, A1 = top left square, C3 = bottom right."
 end
 
-def get_grid_template
+def get_grid_template(grid)
   grid_template = "  1 | 2 | 3 \n"
   grid_template += "------------\n"
   grid_template += "A A1 | A2 | A3 \n"
@@ -52,10 +52,10 @@ def get_grid_template
 
 end
 
-def print_played_grid
+def print_played_grid(grid)
   grid_template = get_grid_template
   #puts "$grid = {#$grid}"
-  $grid.each do |key, value|
+  grid.each do |key, value|
     grid_template[key] = value
   end
 
@@ -69,8 +69,8 @@ def game_over?
   return false
 end
 
-def gameboard_full?
-  unless $grid.has_value?(" ")
+def gameboard_full?(grid)
+  unless grid.has_value?(" ")
     return true
   end
   return false
@@ -101,17 +101,17 @@ def is_valid_move?(player_move)
   return false
 end
 
-def is_move_already_played?(player_move)
+def is_move_already_played?(player_move,grid)
   #is this space already taken by another player?
-  if $grid[player_move] == " "
+  if grid[player_move] == " "
     return false
   end
   return true
 end
 
-def set_player_move(player_move, player)
-  if $grid[player_move] == " "
-    result = $grid[player_move] = player
+def set_player_move(player_move, player,grid)
+  if grid[player_move] == " "
+    result = grid[player_move] = player
   else
     puts "There is already a play in square #{player_move}. #{player} loses a turn."
   end
@@ -189,9 +189,9 @@ def play_game_mode_2
 
 end
 
-def generate_dumb_computer_move
+def generate_dumb_computer_move(grid)
   #play the first available space
-  $grid.each do |key, value|
+  grid.each do |key, value|
     if value == " "
       return key
     end

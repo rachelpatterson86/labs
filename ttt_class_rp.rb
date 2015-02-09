@@ -11,21 +11,18 @@ end
 
 class Player
   attr_accessor :game_options
-  game_options = {"1" => "Human v. Human", "2" => "Human v. Computer(Easy)"}
+  @game_options = {"1" => "Human v. Human", "2" => "Human v. Computer(Easy)"}
+binding.pry
 
-  def initialize(game_options)
-    @game_options = game_options
-  end
-
-  def get_game_mode
-    puts "What Tic Tac Toe game would you like to play? Select 1, 2 or 3"
+  def self.get_game_mode
+    puts "What Tic Tac Toe game would you like to play? Select 1 or 2."
     @game_options.each do |opt, msg|
       puts "#{opt} is #{msg}"
     end
     user_input = gets.chomp
 
     until @game_options.has_key?(user_input)
-      puts "#{user_input} is not an option. Please select 1, 2, or 3."
+      puts "#{user_input} is not an option. Please select 1 or 2."
       user_input = gets.chomp
     end
     puts "You've selected #{@game_options[user_input]} mode! Let's get started."
@@ -228,5 +225,6 @@ end
 
 #tic_tac_toe
 greeting
-Player
+p = Player.new
 Game
+binding.pry
